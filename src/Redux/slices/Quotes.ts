@@ -9,7 +9,8 @@ const initialState = {
   loading: false,
   quote: {} as Quote,
   tags:[] as Tag[],
-  selectedTag : ""
+  selectedTag : "",
+  BookmarkedQuote:[] as Quote[]
 };
 
 type State = typeof initialState;
@@ -21,9 +22,15 @@ const quote = createSlice({
     loading: loadingQuote,
     fetchQuote: getQuote,
     fetchTags: getTags,
-    selectTag:tagSelect
+    selectTag:tagSelect,
+    saveQuote : bookmarkQuote
   },
 });
+
+function bookmarkQuote(state:State){
+  state.BookmarkedQuote.push(state.quote);
+}
+
 
 function tagSelect(state:State , action:PayloadAction<string>){
   state.selectedTag = action.payload;
@@ -46,5 +53,5 @@ function getQuote(state: State, action: PayloadAction<Quote>) {
   state.loading = false;
 }
 
-export const { fetchQuote, loading: loadingRandomQuote , fetchTags:fetchTagsAction , selectTag:selectTagAction } = quote.actions;
+export const { fetchQuote, loading: loadingRandomQuote , fetchTags:fetchTagsAction , selectTag:selectTagAction , saveQuote } = quote.actions;
 export const quoteReducer = quote.reducer;

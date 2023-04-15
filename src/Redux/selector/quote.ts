@@ -21,3 +21,6 @@ export const selectedTag = createSelector(stateSelector  , (quoteState)=>{
     return quoteState.selectedTag;
 })
 
+export const BookmarkedQuoteSelector = createSelector(stateSelector  , (quoteState)=>{
+    return quoteState.BookmarkedQuote;
+})

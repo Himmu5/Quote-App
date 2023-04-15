@@ -1,10 +1,11 @@
 import React,{FC} from 'react'
+import { Link } from 'react-router-dom';
 type P ={}
 const Nav:FC<P>=()=>{
   return <div className='flex justify-between px-10 py-4 font-bold text-white'>
-    <h1>Home</h1>
+    <Link to="/">Home</Link>
 
-    <h1>Bookmarks</h1>
+    <Link to="/Bookmark">Bookmarks</Link>
   </div>
 }
 export default Nav;
