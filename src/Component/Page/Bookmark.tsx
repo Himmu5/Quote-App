@@ -3,8 +3,14 @@ import { ConnectedProps, connect } from 'react-redux';
 import { BookmarkedQuoteSelector } from '../../Redux/selector/quote';
 import { State } from '../../Redux/store';
 import Quote from '../Ui-Component/Quote';
+import NoQuoteAvailable from './NoQuoteAvailable';
 type P ={} & ReduxProps
 const Bookmark:FC<P>=({ BookMarks })=>{
+
+  if(BookMarks.length == 0){
+    return <NoQuoteAvailable />
+  }
+
   return <div className='h-full max-w-5xl mx-auto'>
     {
     BookMarks.map((quote)=>{

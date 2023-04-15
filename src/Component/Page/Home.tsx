@@ -15,15 +15,18 @@ const Home: FC<P> = ({ loadingRandomQuote, quoteData , selectTagAction , tag}) =
   useEffect(() => {
     loadingRandomQuote(tag);
   }, [next])
-  
+
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {selectTagAction(e.target.value)}
 
-  return <div className='flex flex-col gap-4 items-center'>
+
+
+  return <div className='flex flex-col gap-4 items-center h-screen justify-center'>
     <QuoteComponent quote={quoteData.content} author={quoteData.author} />
     <Selector onChange ={handleChange}/>
     <Button mode='Primary' onClick={() => setNext(next + 1)} extraClass=" px-3 py-1 ">Next Quote</Button>
   </div>
 }
+
 
 const mapDispatchToProps = {
   loadingRandomQuote,

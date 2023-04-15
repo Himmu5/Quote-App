@@ -6,7 +6,6 @@ import { Route, Routes } from 'react-router-dom'
 import Bookmark from './Component/Page/Bookmark'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div className='bg-purple-800 '>

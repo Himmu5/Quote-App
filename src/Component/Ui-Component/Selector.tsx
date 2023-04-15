@@ -9,6 +9,7 @@ const Selector:FC<P>=({tags , onChange , tag})=>{
     
   return <div>
     <select value={tag} className='rounded-md shadow-md px-2 py-1 ' onChange={onChange}>
+      <option value={""} >Select Tag</option>
       {
         tags.map((tagObj)=>{
           return <option  key={tagObj._id} value={tagObj.slug} >{tagObj.name}</option>
