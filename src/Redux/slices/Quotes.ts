@@ -8,7 +8,8 @@ import { Tag } from "../../model/Tag";
 const initialState = {
   loading: false,
   quote: {} as Quote,
-  tags:[] as Tag[]
+  tags:[] as Tag[],
+  selectedTag : ""
 };
 
 type State = typeof initialState;
@@ -20,8 +21,13 @@ const quote = createSlice({
     loading: loadingQuote,
     fetchQuote: getQuote,
     fetchTags: getTags,
+    selectTag:tagSelect
   },
 });
+
+function tagSelect(state:State , action:PayloadAction<string>){
+  state.selectedTag = action.payload;
+}
 
 function getTags(state: State , action:PayloadAction<Tag[]>) {
     let data = action.payload;
@@ -31,7 +37,7 @@ function getTags(state: State , action:PayloadAction<Tag[]>) {
     state.tags = data;
 }
 
-function loadingQuote(state: State) {
+function loadingQuote(state: State , action:PayloadAction<string>) {
   state.loading = true;
 }
 
@@ -40,5 +46,5 @@ function getQuote(state: State, action: PayloadAction<Quote>) {
   state.loading = false;
 }
 
-export const { fetchQuote, loading: loadingRandomQuote , fetchTags:fetchTagsAction } = quote.actions;
+export const { fetchQuote, loading: loadingRandomQuote , fetchTags:fetchTagsAction , selectTag:selectTagAction } = quote.actions;
 export const quoteReducer = quote.reducer;

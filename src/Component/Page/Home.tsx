@@ -1,36 +1,40 @@
-import React,{FC, useEffect, useState} from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import QuoteComponent from '../Ui-Component/Quote';
 import Button from '../Ui-Component/Button';
 import { ConnectedProps, connect, useDispatch } from 'react-redux';
-import { loadingRandomQuote } from '../../Redux/slices/Quotes';
+import { loadingRandomQuote, selectTagAction } from '../../Redux/slices/Quotes';
 import { State } from '../../Redux/store';
-import { quoteSelector } from '../../Redux/selector/quote';
+import { quoteSelector, selectedTag } from '../../Redux/selector/quote';
 import Selector from '../Ui-Component/Selector';
 
-type P ={} & ReduxProps
+type P = {} & ReduxProps
 
-const Home:FC<P>=({ loadingRandomQuote , quoteData })=>{
-    const [next , setNext] = useState(1);
-    
-    useEffect(()=>{
-        loadingRandomQuote();
-    },[next])
+const Home: FC<P> = ({ loadingRandomQuote, quoteData , selectTagAction , tag}) => {
+  const [next, setNext] = useState(1);
+
+  useEffect(() => {
+    loadingRandomQuote(tag);
+  }, [next])
+  
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {selectTagAction(e.target.value)}
 
   return <div className='flex flex-col gap-4 items-center'>
-    <QuoteComponent quote={quoteData.content} author={quoteData.author}/>
-    <Selector />
-    <Button mode='Primary' onClick={()=>setNext(next + 1)} extraClass=" px-3 py-1 ">Next Quote</Button>
+    <QuoteComponent quote={quoteData.content} author={quoteData.author} />
+    <Selector onChange ={handleChange}/>
+    <Button mode='Primary' onClick={() => setNext(next + 1)} extraClass=" px-3 py-1 ">Next Quote</Button>
   </div>
 }
 
 const mapDispatchToProps = {
-    loadingRandomQuote
+  loadingRandomQuote,
+  selectTagAction
 }
 
-const mapStateToProps = (state:State)=>({ quoteData : quoteSelector(state) })
+const mapStateToProps = (state: State) => ({ quoteData: quoteSelector(state) , tag : selectedTag(state) })
 
-const connector = connect( mapStateToProps , mapDispatchToProps);
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type ReduxProps = ConnectedProps<typeof connector>;
 
-export default  connector(Home);
+export default connector(Home);

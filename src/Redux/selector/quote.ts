@@ -17,4 +17,7 @@ export const tagSelector = createSelector(stateSelector , (quoteState)=>{
     return quoteState.tags;
 })
 
+export const selectedTag = createSelector(stateSelector  , (quoteState)=>{
+    return quoteState.selectedTag;
+})
 
