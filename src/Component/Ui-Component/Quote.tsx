@@ -1,22 +1,26 @@
 import React, { FC } from 'react'
 import { CiBookmarkPlus } from 'react-icons/ci'
 import { Quote } from '../../model/quote'
-import { saveQuote } from '../../Redux/slices/Quotes'
+import { removeBookmark, saveQuote } from '../../Redux/slices/Quotes'
 import { ConnectedProps, connect } from 'react-redux'
 import { State } from '../../Redux/store'
 import { loadingSelector } from '../../Redux/selector/quote'
 import Loader from './Loader'
+import { AiOutlineDelete } from 'react-icons/ai'
+import Button from './Button'
 
 type P = {
   quote: string,
-  author: string
+  author: string,
+  booked: boolean,
+  _id:string
 } & ReduxProps
 
 
-const QuoteComponent: FC<P> = ({ quote, author , saveQuote , loading}) => {
+const QuoteComponent: FC<P> = ({ quote, author, saveQuote, loading, booked , removeBookmark , _id}) => {
 
 
-  if(loading){
+  if (loading) {
     return <Loader />
   }
 
@@ -24,16 +28,17 @@ const QuoteComponent: FC<P> = ({ quote, author , saveQuote , loading}) => {
     <p>{quote}</p>
     <div className='flex mt-10 gap-4 items-center justify-center'>
       <p className='text-lg '>~{author}</p>
-      <div className='cursor-pointer' onClick={()=>saveQuote()}><CiBookmarkPlus size={20} /></div>
+      {booked == false ? <div className='cursor-pointer bg-green-500 hover:bg-green-600 p-2' onClick={() => saveQuote()}><CiBookmarkPlus size={20} /></div> : <Button extraClass='px-2 hover:bg-red-700 bg-red-600' mode='Primary' onClick={()=>removeBookmark(_id)} > <AiOutlineDelete size={25}/> </Button>}
     </div>
   </div>
 }
 
 const mapDispatchToProps = {
-  saveQuote
+  saveQuote,
+  removeBookmark
 }
 
-const mapStateToProps = (state:State)=>({ loading : loadingSelector(state) })
+const mapStateToProps = (state: State) => ({ loading: loadingSelector(state) })
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

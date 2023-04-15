@@ -1,9 +1,10 @@
 import React,{FC} from 'react'
 import { ConnectedProps, connect } from 'react-redux';
-import { BookmarkedQuoteSelector } from '../../Redux/selector/quote';
+import { BookmarkedQuoteArraySelector } from '../../Redux/selector/quote';
 import { State } from '../../Redux/store';
 import Quote from '../Ui-Component/Quote';
 import NoQuoteAvailable from './NoQuoteAvailable';
+import { removeBookmark } from '../../Redux/slices/Quotes';
 type P ={} & ReduxProps
 const Bookmark:FC<P>=({ BookMarks })=>{
 
@@ -11,18 +12,20 @@ const Bookmark:FC<P>=({ BookMarks })=>{
     return <NoQuoteAvailable />
   }
 
-  return <div className='h-full max-w-5xl mx-auto'>
+  return <div className='h-full max-w-5xl mx-auto pt-20 pb-28'>
     {
     BookMarks.map((quote)=>{
-      return <Quote quote={quote.content} author={quote.author} key={quote.author} />
+      return <Quote _id={quote._id}  quote={quote.content} author={quote.author} key={quote.author} booked={true} />
     })
     }
   </div>
 }
 const mapStateToProps = (state:State)=>( {
-  BookMarks : BookmarkedQuoteSelector(state)
+  BookMarks : BookmarkedQuoteArraySelector(state)
 })
-const connector = connect(mapStateToProps);
+
+
+const connector = connect(mapStateToProps );
 
 type ReduxProps = ConnectedProps<typeof connector>
 

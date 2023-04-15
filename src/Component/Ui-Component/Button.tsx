@@ -1,7 +1,7 @@
-import React,{ButtonHTMLAttributes, FC} from 'react'
+import React,{ButtonHTMLAttributes, FC, ReactNode} from 'react'
 
 type P ={
-    children:string,
+    children:ReactNode,
     mode:string,
     extraClass:string
 } & ButtonHTMLAttributes<HTMLButtonElement>

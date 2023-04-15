@@ -21,6 +21,12 @@ export const selectedTag = createSelector(stateSelector  , (quoteState)=>{
     return quoteState.selectedTag;
 })
 
-export const BookmarkedQuoteSelector = createSelector(stateSelector  , (quoteState)=>{
+export const BookmarkedQuoteMapSelector = createSelector(stateSelector  , (quoteState)=>{
     return quoteState.BookmarkedQuote;
+})
+
+export const BookmarkedQuoteArraySelector = createSelector(stateSelector  , (quoteState)=>{
+    return  Object.keys(quoteState.BookmarkedQuote).map((key)=>{
+        return quoteState.BookmarkedQuote[key];
+    });
 })
